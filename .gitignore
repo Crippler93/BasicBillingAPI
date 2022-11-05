@@ -1,2 +1,4 @@
 obj
 bin
+basicBillingDB-shm
+basicBillingDB-wal
