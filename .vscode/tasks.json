@@ -7,7 +7,7 @@
       "type": "process",
       "args": [
         "build",
-        "${workspaceFolder}/BasicBilling.API.csproj",
+        "${workspaceFolder}/BasicBilling.API/BasicBilling.API.csproj",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
@@ -19,7 +19,7 @@
       "type": "process",
       "args": [
         "publish",
-        "${workspaceFolder}/BasicBilling.API.csproj",
+        "${workspaceFolder}/BasicBilling.API/BasicBilling.API.csproj",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary"
       ],
@@ -33,7 +33,7 @@
         "watch",
         "run",
         "--project",
-        "${workspaceFolder}/BasicBilling.API.csproj"
+        "${workspaceFolder}/BasicBilling.API/BasicBilling.API.csproj"
       ],
       "problemMatcher": "$msCompile"
     }
