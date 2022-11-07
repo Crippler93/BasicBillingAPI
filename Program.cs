@@ -1,4 +1,5 @@
 using BasicBilling.Data;
+using BasicBilling.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<BillingDbContext>(options => 
     options.UseSqlite(CONNECTION_STRING));
+
+builder.Services.AddScoped<BillingService>();
 
 var app = builder.Build();
 
