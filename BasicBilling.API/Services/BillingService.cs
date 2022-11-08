@@ -46,4 +46,19 @@ public class BillingService
 
     return await query.ToListAsync();
   }
+
+  public async Task<Bill> CreateBill(BillDTO billDTO)
+  {
+    if (billDTO.Period.ToString().Length != 6 || String.IsNullOrEmpty(billDTO.Category))
+    {
+      return null;
+    }
+    var bill = new Bill() {
+      Category = billDTO.Category,
+      Period = billDTO.Period
+    };
+    _db.Bills.Add(bill);
+    await _db.SaveChangesAsync();
+    return bill;
+  }
 }

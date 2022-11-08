@@ -37,4 +37,18 @@ public class BillingServiceTests
             Assert.Equal(bill.BillDetails.Category, category);
         }
     }
+
+    [Fact]
+    public async void BillingService_CreateBill_Success()
+    {
+        var newBill = await _service.CreateBill(new BillDTO{Category="TEST", Period=202211});
+        Assert.Equal(newBill.Category, "TEST");
+    }
+
+    [Fact]
+    public async void BillingService_CreateBill_Fail()
+    {
+        var newBill = await _service.CreateBill(new BillDTO{Category="TEST", Period=000000000});
+        Assert.Equal(newBill, null);
+    }
 }
