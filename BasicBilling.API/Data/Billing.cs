@@ -8,4 +8,5 @@ public class Billing
   public Bill BillDetails {get; set;}
 
   public int ClientId {get; set;}
+  public Client Client {get; set;}
 }
