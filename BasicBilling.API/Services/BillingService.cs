@@ -14,7 +14,7 @@ public class BillingService
 
   public async Task<List<BillingResponseDTO>> GetBillings(string? state, int? clientId = null)
   {
-    var query = from b in _db.Billings.Include(b => b.BillDetails) select new BillingResponseDTO{Id=b.Id, State=b.State, BillDetails=b.BillDetails, Client=b.Client};
+    var query = from b in _db.Billings.Include(b => b.BillDetails) select new BillingResponseDTO{Id=b.Id, State=b.State, BillDetails=b.BillDetails, Client=b.Client, Amount=b.Amount};
 
     if (state != null) {
       query = query.Where(b => b.State == state);
@@ -30,7 +30,7 @@ public class BillingService
 
   public async Task<List<BillingResponseDTO>> Search(SearchDTO searchDTO)
   {
-    var query = from b in _db.Billings.Include(b => b.BillDetails).Include(b => b.Client) select new BillingResponseDTO{Id=b.Id, State=b.State, BillDetails=b.BillDetails, Client=b.Client};
+    var query = from b in _db.Billings.Include(b => b.BillDetails).Include(b => b.Client) select new BillingResponseDTO{Id=b.Id, State=b.State, BillDetails=b.BillDetails, Client=b.Client, Amount=b.Amount};
 
     if (!String.IsNullOrEmpty(searchDTO.ClientName)) {
       query = query.Where(b => b.Client.Name.Contains(searchDTO.ClientName));
