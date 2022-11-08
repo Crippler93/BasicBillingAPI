@@ -17,7 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BasicBilling.Tests\BasicBilling.Tests.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 namespace BasicBilling.Data;
 
-public class BillingResponseDTO
+public record BillingResponseDTO
 {
   public int Id { get; set; }
   public string State { get; set; }
