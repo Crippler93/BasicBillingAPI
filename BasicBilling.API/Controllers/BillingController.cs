@@ -1,4 +1,5 @@
 using BasicBilling.Data;
+using BasicBilling.Errors;
 using BasicBilling.Services;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -42,5 +43,28 @@ public class BillingController: ControllerBase
       return Results.BadRequest();
     }
     return Results.Created(new Uri(Request.GetEncodedUrl() + "/" + bill.Id), bill);
+  }
+
+  [HttpPost]
+  [Route("pay")]
+  public async Task<IResult> PayBill(PayDTO payDTO)
+  {
+    try
+    {
+      await _billingService.PayBilling(payDTO);
+      return Results.NoContent();
+    }
+    catch (BadRequestException)
+    {
+      return Results.BadRequest();
+    }
+    catch (NotFoundException)
+    {
+      return Results.NotFound();
+    }
+    catch (Exception)
+    {
+      return Results.Problem(statusCode:500);
+    }
   }
 }

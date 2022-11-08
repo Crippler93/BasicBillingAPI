@@ -1,4 +1,5 @@
 using BasicBilling.Data;
+using BasicBilling.Errors;
 using Microsoft.EntityFrameworkCore;
 
 namespace BasicBilling.Services;
@@ -60,5 +61,28 @@ public class BillingService
     _db.Bills.Add(bill);
     await _db.SaveChangesAsync();
     return bill;
+  }
+
+  public async Task<Billing> PayBilling(PayDTO payDTO)
+  {
+    if (payDTO.Period.ToString().Length != 6 || String.IsNullOrEmpty(payDTO.Category))
+    {
+      throw new BadRequestException();
+    }
+
+    var billingToPaid = await (_db.Billings
+      .Include(b => b.Client)
+      .Include(b => b.BillDetails)
+      .Where(b => b.Client.Id == payDTO.ClientId && b.BillDetails.Category == payDTO.Category && b.BillDetails.Period == payDTO.Period && b.State == "Pending"))
+      .FirstOrDefaultAsync();
+
+    if (billingToPaid == null) {
+      throw new NotFoundException();
+    }
+
+    billingToPaid.State = "Paid";
+
+    await _db.SaveChangesAsync();
+    return billingToPaid;
   }
 }
