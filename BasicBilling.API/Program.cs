@@ -12,6 +12,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<BillingDbContext>(options => 
     options.UseSqlite(CONNECTION_STRING));
+builder.Services.AddCors(options => {
+    options.AddDefaultPolicy(
+        policy =>
+        {
+            policy.AllowAnyOrigin();
+            policy.AllowAnyHeader();
+            policy.AllowAnyMethod();
+        }
+    );
+});
 
 builder.Services.AddScoped<BillingService>();
 
@@ -25,7 +35,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors();
 app.UseAuthorization();
 
 app.MapControllers();
